@@ -13,9 +13,7 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    return [[EMTY, EMPTY, EMPTY],[EMPTY, EMPTY, EMPTY],[EMPTY, EMPTY, EMPTY]]
 
 
 def player(board):
@@ -24,20 +22,22 @@ def player(board):
     """
 
     #if  the list is empty return x 
-    if board == []:
+    if not board:
         return X
 
-    #iterate through the list
+    #count how many times X appears in list
+    value = 0
     for list in board:
-        #iterate through the inside list
-        for value in list:
-            #retrieve the las element in the to be add in the list
-            last_value = list.pop()
-            #if the last element is o return x
-            if last_value == O:
-                return X
-            else:
-                return O
+        # check the number of times X appears in list
+        #store the number in variable value
+        value+= list.count(X)
+
+    #check if value is divisible by 2
+    if value%2 ==0:
+        return X
+    else:
+        return O
+            
     raise NotImplementedError
 
 
@@ -45,7 +45,21 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    # iterate through the current boaard
+
+    #iterate through the board list
+    for sub_list in board:
+        #iterate through sublist
+        for x in sub_list:
+            #look for cells on the board that do not already have an X or an O in them
+            if x!="X" and  x!="O":
+                 #return index of a tuple of (sub_list, index of None in sub_list)
+                return (board.index(sub_list),sub_list.index(None))
+
+   
+        
+    
+
+
     
     raise NotImplementedError
 
@@ -83,4 +97,8 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     raise NotImplementedError
+
+
+
+
 
